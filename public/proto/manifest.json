@@ -1,0 +1,18 @@
+{
+  "desktop": {
+    "count": 319,
+    "fps": 15,
+    "width": 960,
+    "dir": "/proto/desktop",
+    "pattern": "f_%04d.webp"
+  },
+  "source": "3840x2160 HLG HDR 60fps 21.3s",
+  "clip": "2026-09-12 13.43.08.mov",
+  "mobile": {
+    "count": 255,
+    "fps": 12,
+    "width": 640,
+    "dir": "/proto/mobile",
+    "pattern": "f_%04d.webp"
+  }
+}

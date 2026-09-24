@@ -1,0 +1,216 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   KEYSPNEU77 — Design System
+   Palette dérivée du logo : noir profond, orange, or, argent.
+   ============================================================ */
+
+@theme {
+  --color-void: #060607;
+  --color-ink: #0a0a0c;
+  --color-carbon: #101014;
+  --color-graphite: #17171c;
+  --color-steel: #22222a;
+
+  --color-orange: #ff7a00;
+  --color-orange-deep: #e85d04;
+  --color-ember: #ff9e2c;
+  --color-gold: #ffc300;
+  --color-gold-soft: #ffd24c;
+
+  --color-silver: #d7d7dc;
+  --color-silver-dim: #9a9aa4;
+  --color-chalk: #f5f5f7;
+
+  --font-display: var(--font-sora), 'Arial Black', 'Segoe UI', sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --shadow-glow-orange: 0 0 40px -8px rgba(255, 122, 0, 0.55);
+  --shadow-glow-gold: 0 0 48px -10px rgba(255, 195, 0, 0.5);
+}
+
+/* ---- Base ---- */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  /* Clip (et non hidden) : neutralise tout débordement horizontal décoratif
+     sans casser `position: sticky` ni créer de conteneur de défilement. */
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: auto; /* géré par Lenis */
+  /* Scrollbar masquée — Firefox */
+  scrollbar-width: none;
+  -ms-overflow-style: none; /* anciens Edge/IE */
+}
+
+body {
+  margin: 0;
+  background: var(--color-void);
+  color: var(--color-chalk);
+  font-family: var(--font-sans);
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--color-orange);
+  color: #000;
+}
+
+/* Accessibilité : anneau de focus visible au clavier uniquement */
+:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---- Typographie fluide via clamp ---- */
+.text-hero {
+  font-size: clamp(2.1rem, 7.6vw, 7.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+
+.text-section {
+  font-size: clamp(2.2rem, 6vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  font-weight: 800;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* ---- Dégradés de marque ---- */
+.gradient-flame {
+  background: linear-gradient(100deg, #ffd24c 0%, #ffc300 20%, #ff9e2c 55%, #ff7a00 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gradient-silver {
+  background: linear-gradient(180deg, #ffffff 0%, #d7d7dc 45%, #8f8f98 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-glow-orange {
+  text-shadow: 0 0 24px rgba(255, 122, 0, 0.45);
+}
+
+/* ---- Utilitaires ---- */
+.glass {
+  background: rgba(14, 14, 16, 0.55);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-strong {
+  background: rgba(10, 10, 12, 0.78);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.hairline {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Halo lumineux réutilisable */
+.aura {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ligne de séparation type "circuit" */
+.rule-glow {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 122, 0, 0.6), transparent);
+}
+
+/* Barre de progression scroll */
+.scroll-progress {
+  transform-origin: 0 50%;
+}
+
+/* ---- Titre Hero : révélation par mots (robuste, responsive) ----
+   Chaque MOT est une unité insécable ; les mots peuvent passer à la ligne
+   entre eux mais jamais se casser lettre par lettre. Un masque overflow
+   permet la révélation verticale via GSAP sans rogner les jambages (g, p). */
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.04em;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  hyphens: none;
+}
+.hero-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  column-gap: 0.26em;
+}
+.hero-word-mask {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  /* marge pour ne pas rogner g/p/j pendant le masquage de révélation */
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
+}
+.hero-word {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Accessibilité : réduit le mouvement */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Scrollbar masquée partout — Chrome, Edge, Safari, Opera.
+   Le défilement (molette, tactile, clavier, Lenis) reste pleinement actif. */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}

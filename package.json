@@ -1,0 +1,37 @@
+{
+  "name": "keyspneu77",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site vitrine premium KEYSPNEU77 - Specialiste pneumatique a Montereau-Fault-Yonne (77).",
+  "scripts": {
+    "dev": "next dev",
+    "dev:lan": "next dev -H 0.0.0.0",
+    "build": "next build",
+    "start": "npx serve out",
+    "deploy": "next build && wrangler deploy",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "gsap": "^3.13.0",
+    "lenis": "^1.1.20",
+    "lucide-react": "^0.469.0",
+    "motion": "^11.15.0",
+    "next": "^15.1.6",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/three": "^0.170.0",
+    "eslint": "^9.18.0",
+    "eslint-config-next": "^15.1.6",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.0"
+  }
+}
